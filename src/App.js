@@ -8,7 +8,8 @@ import ShopView   from "./pages/ShopView";
 import Workers    from "./pages/Workers";
 import Customers  from "./pages/Customers";
 import OpenAICost from "./pages/OpenAICost";
-import AuditLog   from "./pages/AuditLog";
+import AuditLog      from "./pages/AuditLog";
+import BackupRestore from "./pages/BackupRestore";
 
 const authed = () => !!localStorage.getItem("bp_token");
 
@@ -31,6 +32,7 @@ export default function App() {
                     <Route path="shops/:id/customers" element={<Customers />} />
                     <Route path="openai"      element={<OpenAICost />} />
                     <Route path="audit"       element={<AuditLog />} />
+                    <Route path="backup"      element={<BackupRestore />} />
                 </Route>
                 <Route path="*" element={<Navigate to="/" replace />} />
             </Routes>

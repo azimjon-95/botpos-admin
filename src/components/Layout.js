@@ -6,6 +6,7 @@ const NAV = [
     { to:"/shops",  icon:"🏪", label:"Do'konlar" },
     { to:"/openai", icon:"🤖", label:"OpenAI xarajat" },
     { to:"/audit",  icon:"📋", label:"Audit Log" },
+  { to:"/backup", icon:"💾", label:"Backup & Restore" },
 ];
 
 export default function Layout() {
