@@ -1,25 +1,24 @@
 # BOT·POS Admin Panel
 
-To'liq boshqaruv paneli — do'konlar CRUD, xodimlar, mijozlar, OpenAI xarajat.
+BOT·POS SaaS platformasi uchun admin boshqaruv paneli.
 
-## O'rnatish
+## Repolar
+
+| Repo | Maqsad | URL |
+|---|---|---|
+| `botpos-saas` | Backend (Node.js + Telegram bot) | Deploy: Render/Railway |
+| `botpos-admin` | Admin panel (React) | Deploy: Vercel |
+| `botpos-webapp` | Do'kon web app (React) | Deploy: Vercel |
+
+## Ishga tushirish
+
 ```bash
 npm install
-cp .env.example .env
-npm start   # localhost:3001
+npm start
 ```
 
-## Sahifalar
+## .env
 
-| Sahifa | Yo'l | Tavsif |
-|--------|------|--------|
-| Dashboard | `/` | Statistika + bot holatlari (15s auto-yangilanish) |
-| Do'konlar | `/shops` | CRUD: yaratish, tahrirlash, o'chirish, bloklash, restart |
-| Do'kon forma | `/shops/new` `/shops/:id/edit` | Token shifrlash bilan |
-| Xodimlar | `/shops/:id/workers` | Do'kon xodimlari CRUD + blok |
-| Mijozlar | `/shops/:id/customers` | Cashback mijozlar + blok |
-| OpenAI xarajat | `/openai` | Real API → kunlik grafik + model breakdown |
-| Audit Log | `/audit` | Barcha admin amallari tarixi |
-
-## API ulanish
-`REACT_APP_API_BASE=http://localhost:6060` → `/api/admin/*`
+```
+REACT_APP_API_BASE=https://your-backend.onrender.com
+```
