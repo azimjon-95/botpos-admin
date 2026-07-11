@@ -10,20 +10,40 @@ api.interceptors.request.use(cfg => {
     return cfg;
 });
 
-api.interceptors.response.use(r => r, async err => {
-    if (err.response?.status === 401) {
-        const refresh = localStorage.getItem("bp_refresh");
-        if (refresh) {
-            try {
-                const r = await axios.post(`${BASE}/api/admin/refresh`, { refresh });
-                const t = r.data?.data?.token;
-                if (t) { localStorage.setItem("bp_token", t); err.config.headers.Authorization = `Bearer ${t}`; return axios(err.config); }
-            } catch {}
+api.interceptors.response.use(
+    r => r,
+    async err => {
+        const status = err.response?.status;
+
+        // Login sahifasida 401 bo'lsa — chiqib ketma
+        if (window.location.pathname === "/login") {
+            return Promise.reject(err?.response?.data?.error || err.message);
         }
-        localStorage.clear(); window.location.href = "/login";
+
+        if (status === 401) {
+            const refreshToken = localStorage.getItem("bp_refresh");
+            if (refreshToken) {
+                try {
+                    const BASE2 = process.env.REACT_APP_API_BASE_URL
+                               || process.env.REACT_APP_API_BASE
+                               || "http://localhost:6060";
+                    const r = await axios.post(`${BASE2}/api/admin/refresh`, { refresh: refreshToken });
+                    const t = r.data?.data?.token;
+                    if (t) {
+                        localStorage.setItem("bp_token", t);
+                        err.config.headers.Authorization = `Bearer ${t}`;
+                        return axios(err.config);
+                    }
+                } catch {}
+            }
+            // Refresh ham ishlamadi — logout
+            localStorage.removeItem("bp_token");
+            localStorage.removeItem("bp_refresh");
+            window.location.href = "/login";
+        }
+        return Promise.reject(err?.response?.data?.error || err.message);
     }
-    return Promise.reject(err?.response?.data?.error || err.message);
-});
+);
 
 const r = (method, url, data, params) => api({ method, url, data, params }).then(r => r.data?.data ?? r.data);
 
