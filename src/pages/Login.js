@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../api";
 
 export default function Login() {
-    const [email, setEmail] = useState("admin@botpos.uz");
+    const [email, setEmail] = useState(
+        process.env.REACT_APP_ADMIN_EMAIL || "admin@botpos.uz"
+    );
     const [pass,  setPass]  = useState("");
     const [err,   setErr]   = useState("");
     const [loading, setLoading] = useState(false);
@@ -13,8 +15,11 @@ export default function Login() {
         e.preventDefault(); setErr(""); setLoading(true);
         try {
             const r = await login(email, pass);
-            localStorage.setItem("bp_token",   r.data.data.token);
-            localStorage.setItem("bp_refresh",  r.data.data.refresh);
+            const token   = r.data?.data?.token   || r.data?.token;
+            const refresh = r.data?.data?.refresh || r.data?.refresh;
+            if (!token) throw new Error("Token kelmadi");
+            localStorage.setItem("bp_token",   token);
+            localStorage.setItem("bp_refresh",  refresh || "");
             nav("/");
         } catch(e) { setErr(String(e)); }
         finally { setLoading(false); }
