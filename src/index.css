@@ -1,32 +1,62 @@
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* BOT·POS Admin — Global CSS Variables */
 :root {
-  --bg:       #0b0e17;
-  --bg2:      #111520;
-  --surface:  #161b27;
-  --surface2: #1e2436;
-  --surface3: #252c3d;
+  --bg:       #0a0b0f;
+  --surface:  #13161f;
+  --surface2: #191d2a;
+  --surface3: #1f2436;
   --border:   rgba(255,255,255,0.07);
-  --border2:  rgba(255,255,255,0.12);
-  --gold:     #f7c948;
-  --gold2:    rgba(247,201,72,0.15);
-  --green:    #22d47a;
-  --green2:   rgba(34,212,122,0.12);
-  --red:      #f87171;
-  --red2:     rgba(248,113,113,0.12);
+  --border2:  rgba(255,255,255,0.13);
+
+  --text:     #e4eaf5;
+  --text2:    rgba(228,234,245,0.5);
+  --text3:    rgba(228,234,245,0.25);
+
+  --gold:     #f5c842;
+  --gold2:    rgba(245,200,66,0.12);
+  --green:    #22d474;
+  --green2:   rgba(34,212,116,0.12);
+  --red:      #f06060;
+  --red2:     rgba(240,96,96,0.12);
   --blue:     #4d9fff;
   --blue2:    rgba(77,159,255,0.12);
   --purple:   #a78bfa;
   --purple2:  rgba(167,139,250,0.12);
   --orange:   #fb923c;
-  --text:     #e8eaf2;
-  --text2:    rgba(232,234,242,0.55);
-  --text3:    rgba(232,234,242,0.3);
-  --r:        10px;
-  --r2:       14px;
-  --r3:       18px;
+  --orange2:  rgba(251,146,60,0.12);
+
+  --r:   8px;
+  --r2:  12px;
+  --r3:  16px;
+  --r4:  20px;
+
+  --shadow: 0 4px 24px rgba(0,0,0,0.3);
 }
-body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; font-size: 14px; -webkit-font-smoothing: antialiased; }
-a { color: inherit; text-decoration: none; }
-button { cursor: pointer; border: none; outline: none; font-family: inherit; }
-input, select, textarea { font-family: inherit; outline: none; }
-::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 99px; }
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 14px; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+button { font-family: inherit; cursor: pointer; border: none; background: none; }
+input, textarea, select { font-family: inherit; }
+a { text-decoration: none; color: inherit; }
+
+::-webkit-scrollbar       { width: 5px; height: 5px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 99px; }
+
+@keyframes fadeIn   { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+@keyframes spin     { to { transform:rotate(360deg); } }
+@keyframes shimmer  {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+.animate-in { animation: fadeIn .2s ease; }
